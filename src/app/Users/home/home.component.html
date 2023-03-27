@@ -1,0 +1,264 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <div class="row">
+    <ngu-carousel
+      #myCarousel
+      [inputs]="carouselConfig"
+      [dataSource]="carouselItems"
+      (carouselLoad)="carouselTileLoad($event)"
+      class="carousell"
+    >
+      <div *nguCarouselDef="let item" class="item">
+        <img class="homeimage" [src]="item" />
+      </div>
+      <!-- <button NguCarouselNext class="rightRs">></button>
+        <button NguCarouselPrev class="leftRs"><</button> -->
+    </ngu-carousel>
+  </div>
+</div>
+<div class="row" style="height: 4rem"></div>
+<div class="container">
+  <div id="demo" class="carousel slide" data-bs-ride="carousel">
+    <!-- Indicators/dots -->
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#demo"
+        data-bs-slide-to="0"
+        class="active"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#demo"
+        data-bs-slide-to="1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#demo"
+        data-bs-slide-to="2"
+      ></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="row">
+        <div class="col-4" (click)="btnHomepage('newin')">
+          <div class="card senimagecard">
+            <img src="assets/images/3-1.webp" />
+            <div class="lc-content">
+              <h2 class="ctah2">new arrivals</h2>
+              <p class="cta">shop now</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4" (click)="btnweddingpage('Jumpsuits')">
+          <div class="card senimagecard">
+            <img src="assets/images/3-2.webp" />
+            <div class="lc-content">
+              <h2 class="ctah2">wedding guest</h2>
+              <p class="cta">shop now</p>
+            </div>
+            <div class="banner-bottom">
+              <div class="slant"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4" (click)="btnweddingpage('Suits')">
+          <div class="card senimagecard">
+            <img src="assets/images/3-3.webp" />
+            <div class="lc-content">
+              <h2 class="ctah2">suiting</h2>
+              <p class="cta">shop now</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Left and right controls/icons -->
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#demo"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#demo"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <!-- <div class="row">
+    <div class="col-4">
+      <div class="card senimagecard">1</div>
+    </div>
+    <div class="col-4">
+      <div class="card senimagecard">1</div>
+    </div>
+    <div class="col-4">
+      <div class="card senimagecard">1</div>
+    </div>
+  </div> -->
+</div>
+
+<div class="row" style="height: 4rem"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <video
+      src="assets/videos/video-1.mp4"
+      autoplay
+      loop
+      controls
+      [muted]="'muted'"
+    ></video>
+  </div>
+</div>
+
+<div class="row" style="height: 3rem"></div>
+<div class="container">
+  <div class="row contentrow">
+    <h2 class="LAVISHALICE">#LAVISHALICE</h2>
+    <p class="showp">
+      Show us what you're loving and<br />
+      how you're wearing it.
+    </p>
+  </div>
+</div>
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-4" *ngFor="let product of products; let i = index">
+      <div class="card" style="margin-bottom: 3px" *ngIf="i < 6">
+        <img
+          [src]="env.apiUrl + 'product_images/' + product.images[0].name"
+          class="image1"
+        />
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="container">
+  <div class="row">
+    <div class="col-4" *ngFor="let product of products; let i = index">
+      <div class="card" *ngIf="i < 6">
+        <img
+          [src]="env.apiUrl + 'product_images/' + product.images[0].name"
+          class="image1"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row trending">
+    <p class="trendingnow">Trending Now</p>
+  </div>
+</div>
+<owl-carousel-o [options]="customOptions">
+  <ng-container *ngFor="let product of products">
+    <ng-template carouselSlide [id]="product.id">
+      <img
+        [src]="env.apiUrl + 'product_images/' + product.images[0].name"
+        style="cursor: pointer; padding: 16px"
+        height="500px"
+        width="0px"
+        (click)="btnOneProduct(product._id)"
+      />
+      <p class="slide_content">{{ product.name }}</p>
+      <p class="slide_content">Rs. {{ product.price }}</p>
+    </ng-template>
+  </ng-container>
+</owl-carousel-o>
+
+<ng-template #content let-modal class="supportmodel">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Leave us a message</h4>
+    <button
+      type="button"
+      class="btn close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true" class="close"> × </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formSupport">
+      <label>Name</label>
+      <input
+        class="form-control suppotinput"
+        formControlName="name"
+        type="text"
+        [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+      />
+      <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+        <div *ngIf="f['name'].errors['required']">Name is required</div>
+        <div *ngIf="f['name'].errors['minlength']">
+          Name must be at least 3 characters
+        </div>
+        <div *ngIf="f['name'].errors['maxlength']">
+          Name must not exceed 20 characters
+        </div>
+      </div>
+      <label>Email</label>
+      <input
+        type="email"
+        class="form-control suppotinput"
+        formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+      />
+      <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+        <div *ngIf="f['email'].errors['required']">Email is required</div>
+        <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+      </div>
+      <label>How can we help you?</label>
+      <textarea
+        class="form-control suppotinput"
+        formControlName="message"
+        rows="4"
+        cols="50"
+        [ngClass]="{ 'is-invalid': submitted && f['message'].errors }"
+      ></textarea>
+      <div *ngIf="submitted && f['message'].errors" class="invalid-feedback">
+        <div *ngIf="f['message'].errors['required']">Message is required</div>
+        <div *ngIf="f['message'].errors['minlength']">
+          Message must be at least 3 characters
+        </div>
+        <div *ngIf="f['message'].errors['maxlength']">
+          Message must not exceed 40 characters
+        </div>
+      </div>
+      <label>Attachments</label>
+      <div class="btn btnfile">
+        <input type="file" class="inputfile" (change)="onFileSelect($event)" />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Cancel
+        </button>
+        <button type="button" class="btn btn-outline-dark" (click)="btnSend()">
+          Send
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<div class="container-fluid">
+  <div class="row" style="height: 4rem">
+    <button class="myBtn" title="Go to top" (click)="open(content)">
+      <i class="fa fa-question-circle" aria-hidden="true"></i>Support
+    </button>
+  </div>
+</div>
+<app-footer></app-footer>

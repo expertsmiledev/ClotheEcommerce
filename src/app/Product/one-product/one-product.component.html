@@ -1,0 +1,235 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+      <div class="gallery-wrapper">
+        <ngx-gallery
+          [options]="galleryOptions"
+          [images]="galleryImages"
+          class="ngx-gallery"
+        ></ngx-gallery>
+
+
+        <!-- <owl-carousel-o [options]="customOptions">
+
+          <ng-container *ngFor="let slide of product.images">
+            <ng-template carouselSlide [id]="slide.id">
+              <img [src]="this.env.apiUrl + 'product_images/' + slide.name" [alt]="slide.alt" [title]="slide.title">
+            </ng-template>
+          </ng-container>
+
+        </owl-carousel-o> -->
+
+
+      </div>
+    </div>
+    <div class="col-md-5 clothing_detail">
+      <div class="product-top">
+        <p class="product-code">code: {{ code }}</p>
+      </div>
+      <hr />
+      <p class="statement">
+        {{ product?.name | titlecase }}
+      </p>
+      <p class="rs">Rs. {{ product?.price }}</p>
+      <label class="product-variant-select-label">Size:</label>
+      <select class="product_select">
+        <option class="product_option">UK4 / US0 / EU32</option>
+        <option class="product_option">UK6 / US2 / EU34</option>
+        <option class="product_option">UK8 / US4 / EU36</option>
+        <option class="product_option">UK10 / US6 / EU38</option>
+        <option class="product_option">UK12 / US8 / EU40</option>
+        <option class="product_option">UK14 / US10 / EU42</option>
+        <option class="product_option">UK16 / US12 / EU44</option>
+        <option class="product_option">UK18 / US14 / EU46</option>
+      </select>
+      <div class="iwishAddWrap">
+        <a class="iWishAdd" (click)="btnWishList()">Add to Wishlist</a><br>
+        <a class="msg">{{msg}}</a>
+      </div>
+      <button class="btn btnsold" *ngIf="product?.quantity === 0">sold out</button>
+      <button class="btn btnsold" (click)="btnAddBag()" *ngIf="product?.quantity !== 0">Add to bag</button>
+      <a class="cartmsg">{{cartMsg}}</a>
+
+      <label for="checkbox" id="checkboxLabel" class="product_info"
+        >PRODUCT INFO</label
+      >
+      <hr />
+      <input type="checkbox" id="checkbox" />
+      <div id="stuffToShow">
+        <p class="product_content">
+          {{ description }}
+        </p>
+        <p class="product_content">Material: {{ material }}</p>
+        <p class="product_content">Care: {{ care }}</p>
+        <p class="product_content">Model Wears:{{ modelSize }}</p>
+        <p class="product_content" style="margin-bottom: 3rem">
+          Model's Height: {{ modelHeight }}
+        </p>
+      </div>
+      <label for="checkbox3" id="checkbox3Label3" class="RETURNS_info"
+        >RETURNS</label
+      >
+      <hr />
+      <input type="checkbox" id="checkbox3" />
+      <div id="stuffToShow3">
+        <p class="RETURNS_content">
+          You can find our returns policy here. If you have any questions about
+          our returns policy, please contact our customer care team before
+          making a purchase or return. You can contact us by emailing
+          <a class="emaillink" href="mailto:care@lavishalice.com"
+            >care@lavishalice.com</a
+          >. All returns must be processed through our dedicated returns portal
+          which can be found here at www.lavishalice.com/returns.
+        </p>
+        <hr />
+      </div>
+      <p class="question">
+        Got a question? <a class="clickhelp" href="contact">Click for help.</a>
+      </p>
+      <div class="social_icon">
+        <a
+          class="aicon"
+          href="//www.facebook.com/sharer.php?u=https://lavishalice.com/en-in/products/statement-collar-colour-block-blazer-in-magenta-pink"
+        >
+          <i
+            class="fa fa-facebook-square"
+            style="font-size: 29px; padding-left: 12px; padding-right: 3px"
+          ></i
+          ><span class="fackbook">Share</span></a
+        >
+        <a
+          class="aicon"
+          href="//twitter.com/share?text=Statement%20Collar%20Colour%20Block%20Blazer%20In%20Magenta%20Pink&url=https://lavishalice.com/en-in/products/statement-collar-colour-block-blazer-in-magenta-pink"
+        >
+          <i
+            class="fa fa-twitter"
+            style="font-size: 29px; padding-left: 12px; padding-right: 3px"
+          ></i
+          ><span>Tweet</span></a
+        >
+        <a
+          class="aicon"
+          href="//pinterest.com/pin/create/button/?url=https://lavishalice.com/en-in/products/statement-collar-colour-block-blazer-in-magenta-pink&media=//cdn.shopify.com/s/files/1/2722/8634/products/LA_SPRING22_ECOM_105068_1024x1024.jpg?v=1653067612&description=Statement%20Collar%20Colour%20Block%20Blazer%20In%20Magenta%20Pink"
+        >
+          <i
+            class="fa fa-pinterest"
+            style="font-size: 29px; padding-left: 12px; padding-right: 3px"
+          ></i
+          ><span>Pin it</span></a
+        >
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <h5 class="related">related products</h5>
+
+    <owl-carousel-o [options]="customOptions">
+      <ng-container *ngFor="let product of allProducts">
+        <ng-template carouselSlide [id]="product.id">
+          <img
+            [src]="env.apiUrl + 'product_images/' + product.images[0].name"
+            style="cursor: pointer; padding: 16px"
+            height="450px"
+            width="0px"
+            (click)="btnRelated_product(product._id)"
+          />
+          <p class="slide_content">{{ product.name }}</p>
+          <p class="slide_content">{{ product.price | currency: 'INR': 'Rs.' }}</p>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+</div>
+
+<ng-template #content let-modal class="supportmodel">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Leave us a message</h4>
+    <button
+      type="button"
+      class="btn close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true" class="close"> × </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formSupport">
+      <label>Name</label>
+      <input
+        class="form-control suppotinput"
+        formControlName="name"
+        type="text"
+        [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+      />
+      <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+        <div *ngIf="f['name'].errors['required']">Name is required</div>
+        <div *ngIf="f['name'].errors['minlength']">
+          Name must be at least 6 characters
+        </div>
+        <div *ngIf="f['name'].errors['maxlength']">
+          Name must not exceed 20 characters
+        </div>
+      </div>
+      <label>Email</label>
+      <input
+        type="email"
+        class="form-control suppotinput"
+        formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+      />
+      <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+        <div *ngIf="f['email'].errors['required']">Email is required</div>
+        <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+      </div>
+      <label>How can we help you?</label>
+      <textarea
+        class="form-control suppotinput"
+        formControlName="message"
+        rows="4"
+        cols="50"
+        [ngClass]="{ 'is-invalid': submitted && f['message'].errors }"
+      ></textarea>
+      <div *ngIf="submitted && f['message'].errors" class="invalid-feedback">
+        <div *ngIf="f['message'].errors['required']">Message is required</div>
+        <div *ngIf="f['message'].errors['minlength']">
+          Message must be at least 6 characters
+        </div>
+        <div *ngIf="f['message'].errors['maxlength']">
+          Message must not exceed 40 characters
+        </div>
+      </div>
+      <label>Attachments</label>
+      <div class="btn btnfile">
+        <input type="file" class="inputfile" (change)="onFileSelect($event)"/>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Cancel
+        </button>
+        <button type="button" class="btn btn-outline-dark" (click)="btnSend()">
+          Send
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<div class="container-fluid">
+  <div class="row" style="height: 4rem">
+    <button class="myBtn" title="Go to top" (click)="open(content)">
+      <i class="fa fa-question-circle" aria-hidden="true"></i>Support
+    </button>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,172 @@
+<app-header></app-header>
+<div class="container-fluid clothing_contanier">
+  <div class="row" style="padding-bottom: 2rem">
+    <h5 class="clothing">Clothing</h5>
+    <p class="content_clothing">
+      Experience a collection of directional designs. Capes are a signature
+      element, appearing throughout the range on blazers, tuxedo dresses,
+      bodysuits and jackets. Tailored jumpsuits flatter the silhouette with
+      cutaway necklines and nipped-in waists, while dresses offer a
+      fashion-forward approach to occasion wear attire. Polished metal details
+      create bold focal points, while feminine tie waist detailing adds a
+      romantic edge. Our clean, pared back lines are cut from a palette of
+      technical cotton weaves, ribbed knit and stretch ponte in a blend of
+      understated neutrals and brights, complemented with modernist prints.
+    </p>
+  </div>
+  <div class="row clothing_row">
+    <ul class="clothing_ul" style="display: flex">
+      <a><li class="cloth_li" (click)="btnCategory('Dresses ')">Dresses</li></a>
+      <a><li class="cloth_li" (click)="btnCategory('Suits')">Suits</li></a>
+      <a
+        ><li class="cloth_li" (click)="btnCategory('Jumpsuits')">
+          Jumpsuits
+        </li></a
+      >
+      <a><li class="cloth_li" (click)="btnCategory('Tops')">Tops</li></a>
+      <a><li class="cloth_li" (click)="btnCategory('Shorts')">Shorts</li></a>
+      <a
+        ><li class="cloth_li" (click)="btnCategory('Trousers')">Trousers</li></a
+      >
+    </ul>
+  </div>
+  <div class="row" style="background-color: white; height: 2.5rem"></div>
+
+  <div class="row main_div" style="background-color: white">
+    <div class="left_side">
+      <select class="sortby" #teams (change)="onSelected(teams.value)">
+        <option class="sort_option" value="manual">Sort by: Featured</option>
+        <option class="sort_option" value="a-z">Alphabetically, A-Z</option>
+        <option class="sort_option" value="lowToHigh">
+          Price, low to high
+        </option>
+        <option class="sort_option" value="highToLow">
+          Price, high to low
+        </option>
+        <option class="sort_option" value="newToOld">Date, new to old</option>
+        <option class="sort_option" value="oldToNew">Date, old to new</option>
+      </select>
+    </div>
+
+    <div class="right_side">
+      <div class="card cloth_card" *ngFor="let product of products">
+        <a (click)="btnOneProduct(product._id)">
+          <img
+            [src]="env.apiUrl + 'product_images/' + product.images[0].name"
+            class="card-img-top"
+            alt="..."
+        /></a>
+        <div class="product-details">
+          <div class="product_label">
+            <span class="product-label-inner">new season</span>
+          </div>
+          <p class="product-title">
+            {{ product.name }}
+          </p>
+          <p class="product-title">
+            sale Rs.
+            {{
+              math.trunc(
+                product.price - (product.price * product.discount) / 100
+              )
+            }}
+            <span style="text-decoration: line-through"
+              >Rs.{{ product.price }}
+            </span>
+          </p>
+          <p class="product-title">{{ product.discount }}% off</p>
+          <!-- <p class="product-title">{{ product.category }}</p>
+        <p class="product-title">{{ product.product_collection }}</p> -->
+          <p class="product-title">{{ product.date }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #content let-modal class="supportmodel">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Leave us a message</h4>
+      <button
+        type="button"
+        class="btn close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true" class="close"> × </span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="formSupport">
+        <label>Name</label>
+        <input
+          class="form-control suppotinput"
+          formControlName="name"
+          type="text"
+          [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+        />
+        <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+          <div *ngIf="f['name'].errors['required']">Name is required</div>
+          <div *ngIf="f['name'].errors['minlength']">
+            Name must be at least 6 characters
+          </div>
+          <div *ngIf="f['name'].errors['maxlength']">
+            Name must not exceed 20 characters
+          </div>
+        </div>
+        <label>Email</label>
+        <input
+          type="email"
+          class="form-control suppotinput"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+        />
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+          <div *ngIf="f['email'].errors['required']">Email is required</div>
+          <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+        </div>
+        <label>How can we help you?</label>
+        <textarea
+          class="form-control suppotinput"
+          formControlName="message"
+          rows="4"
+          cols="50"
+          [ngClass]="{ 'is-invalid': submitted && f['message'].errors }"
+        ></textarea>
+        <div *ngIf="submitted && f['message'].errors" class="invalid-feedback">
+          <div *ngIf="f['message'].errors['required']">Message is required</div>
+          <div *ngIf="f['message'].errors['minlength']">
+            Message must be at least 6 characters
+          </div>
+          <div *ngIf="f['message'].errors['maxlength']">
+            Message must not exceed 40 characters
+          </div>
+        </div>
+        <label>Attachments</label>
+        <div class="btn btnfile">
+          <input type="file" class="inputfile" (change)="onFileSelect($event)"/>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            (click)="modal.dismiss('Cross click')"
+          >
+            Cancel
+          </button>
+          <button type="button" class="btn btn-outline-dark" (click)="btnSend()">
+            Send
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+  <div class="container-fluid">
+    <div class="row" style="height: 4rem">
+      <button class="myBtn" title="Go to top" (click)="open(content)">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>Support
+      </button>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

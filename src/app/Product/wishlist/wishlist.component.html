@@ -1,0 +1,75 @@
+<app-header></app-header>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-1" style="width: 70px"></div>
+      <div class="col-md-6">
+        <p class="shoppingbag">My Wishlist</p>
+        <hr />
+        <div class="pinkcard"  *ngFor="let product of products">
+          <div class="card_image">
+            <img
+            [src]="env.apiUrl + 'product_images/' + product.images[0].name"
+              height="145px"
+            />
+          </div>
+          <div class="card-detail">
+            <a (click)="btnProductName(product._id)" class="card-ptag"
+              ><p>{{product.name}}</p></a
+            >
+            <p class="card-ptag" style="text-decoration: none">
+              {{product.size}}
+            </p>
+            <p class="card-ptag" style="text-decoration: none">{{product.price | currency: "INR" : "Rs."}}</p>
+            <a class="card-ptag" (click)="btnDelete(product._id)"><p>Remove</p></a>
+            <button class="btn btnaddcard" (click)="btnCart(product._id)">Add to Cart</button>
+          </div>
+        </div>
+      <p class="bag-empty" *ngIf="products?.length == 0">Your wish list is currently empty.</p>
+
+        <a href="/clothing"><p class="shopping">Continue Shopping</p></a>
+      </div>
+      <div class="col-md-1" style="width: 70px"></div>
+      <div class="col-md-4">
+        <div class="sidepinkcard">
+          <div class="card-detail">
+            <p class="oreder-summary">Summary</p>
+            <hr style="width: 354px; margin-top: 1px" />
+            <p class="oreder-ptag">Checkout currency: INR ₹</p>
+            <p class="oreder-ptag">Your items total</p>
+            <p class="oreder-ptag">{{sum | currency: "INR" : "Rs."}} INR</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="container-fluid">
+    <div class="row" style="margin-left: 10px; margin-right: 10px">
+      <p class="related-item">Related to Items in your Shopping Bag</p>
+      <owl-carousel-o [options]="customOptions">
+        <ng-container *ngFor="let slide of related_images">
+          <ng-template carouselSlide [id]="slide.id">
+            <img
+              [src]="slide.path"
+              style="cursor: pointer; padding: 16px"
+              height="450px"
+              width="0px"
+            />
+            <p class="slide_content">{{ slide.content }}</p>
+            <p class="slide_content">{{ slide.price }}</p>
+            <select class="product_select">
+              <option class="product_option">UK4 / US0 / EU32</option>
+              <option class="product_option">UK6 / US2 / EU34</option>
+              <option class="product_option">UK8 / US4 / EU36</option>
+              <option class="product_option">UK10 / US6 / EU38</option>
+              <option class="product_option">UK12 / US8 / EU40</option>
+              <option class="product_option">UK14 / US10 / EU42</option>
+              <option class="product_option">UK16 / US12 / EU44</option>
+              <option class="product_option">UK18 / US14 / EU46</option>
+            </select>
+            <button class="btn btnaddbag" >add to bag</button>
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
+    </div>
+  </div> -->
+<app-footer></app-footer>
